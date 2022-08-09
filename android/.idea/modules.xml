@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1984818034/android.camera_android.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.iml" filepath="$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1450133488/android.flutter_plugin_android_lifecycle.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-534593023/android.path_provider_android.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1135612201/android.permission_handler_android.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1395313704/android.video_player_android.unitTest.iml" />
+    </modules>
+  </component>
+</project>
