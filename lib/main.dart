@@ -60,6 +60,12 @@ class AppController extends GetxController {
     _mediaFileList.remove(file);
     update();
   }
+
+  void updateItem(MediaFile file) {
+    addFile(file);
+    file.vpc = null;
+    removeFile(file);
+  }
 }
 
 class MediaFile {
@@ -67,11 +73,13 @@ class MediaFile {
   String fileName;
   String time;
   int totalBytes;
+  VideoPlayerController? vpc;
   MediaFile({
     required this.path,
     required this.fileName,
     required this.time,
     required this.totalBytes,
+    this.vpc,
   });
 
   Map<String, dynamic> toMap() {
@@ -147,6 +155,7 @@ class CaptureScreen extends StatefulWidget {
 class _CaptureScreenState extends State<CaptureScreen> with WidgetsBindingObserver, TickerProviderStateMixin {
   CameraController? controller;
   VideoPlayerController? videoController;
+  final ScrollController _listViewController = ScrollController();
   VoidCallback? videoPlayerListener;
   XFile? imageFile;
   XFile? videoFile;
@@ -190,11 +199,38 @@ class _CaptureScreenState extends State<CaptureScreen> with WidgetsBindingObserv
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(child: _cameraPreviewWidget()),
+          _previews,
           _controlRowWidget(),
         ],
       ),
     );
   }
+
+  Widget get _previews => Container(
+        height: 120,
+        width: double.infinity,
+        padding: const EdgeInsets.all(10),
+        color: Colors.blue.withOpacity(0.3),
+        child: GetBuilder<AppController>(builder: (_app) {
+          return ListView.builder(
+            controller: _listViewController,
+            scrollDirection: Axis.horizontal,
+            reverse: true,
+            itemBuilder: (context, index) => Container(
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              width: 100,
+              height: 100,
+              child: _app.mediaFileList[index].path.endsWith(".mp4")
+                  ? _player(_app.mediaFileList[index])
+                  : Image.file(
+                      File(_app.mediaFileList[index].path),
+                      fit: BoxFit.cover,
+                    ),
+            ),
+            itemCount: _app.mediaFileList.length,
+          );
+        }),
+      );
 
   Widget _controlRowWidget() {
     final CameraController? cameraController = controller;
@@ -251,6 +287,20 @@ class _CaptureScreenState extends State<CaptureScreen> with WidgetsBindingObserv
         child: CameraPreview(controller!),
       );
     }
+  }
+
+  Widget _player(MediaFile m) {
+    final VideoPlayerController? localVideoController = m.vpc;
+    if (localVideoController == null) return Container();
+    m.vpc?.play();
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: AspectRatio(
+        aspectRatio: localVideoController.value.aspectRatio,
+        child: VideoPlayer(localVideoController),
+      ),
+    );
   }
 
   Future<void> _initCamera() async {
@@ -343,27 +393,9 @@ class _CaptureScreenState extends State<CaptureScreen> with WidgetsBindingObserv
           videoController = null;
         });
         if (file != null) {
-          showInSnackBar('Picture saved to ${file.path}');
-          String time = Utils.getTimeString();
-          String path = await Utils.createMediaPath();
-          String name = "$time.jpg";
-          String fullPath = "$path/$name";
-          log(fullPath);
-
-          int totalBytes = await file.length();
-          await File(fullPath).create(recursive: true);
-
-          await file.saveTo(fullPath);
-
-          MediaFile m = MediaFile(
-            path: fullPath,
-            fileName: name,
-            time: time,
-            totalBytes: totalBytes,
-          );
-          app.addFile(m);
-          showInSnackBar('added to controller ${m.time}');
-          Get.back();
+          // showInSnackBar('Picture saved to ${file.path}');
+          await addMediaToList(file);
+          // Get.back();
         }
       }
     });
@@ -405,15 +437,11 @@ class _CaptureScreenState extends State<CaptureScreen> with WidgetsBindingObserv
     }
   }
 
-  Future<void> _startVideoPlayer() async {
-    if (videoFile == null) {
-      return;
-    }
-
-    final VideoPlayerController vController = VideoPlayerController.file(File(videoFile!.path));
+  Future<void> _startVideoPlayer(MediaFile file) async {
+    final VideoPlayerController vController = VideoPlayerController.file(File(file.path));
 
     videoPlayerListener = () {
-      if (videoController != null && videoController!.value.size != null) {
+      if (videoController != null) {
         // Refreshing the state to update video player with the correct ratio.
         if (mounted) {
           setState(() {});
@@ -431,6 +459,9 @@ class _CaptureScreenState extends State<CaptureScreen> with WidgetsBindingObserv
         videoController = vController;
       });
     }
+    file.vpc = vController;
+    app.updateItem(file);
+
     await vController.play();
   }
 
@@ -443,16 +474,47 @@ class _CaptureScreenState extends State<CaptureScreen> with WidgetsBindingObserv
   }
 
   void onStopButtonPressed() {
-    stopVideoRecording().then((XFile? file) {
+    stopVideoRecording().then((XFile? file) async {
       if (mounted) {
         setState(() {});
       }
       if (file != null) {
         showInSnackBar('Video recorded to ${file.path}');
         videoFile = file;
-        _startVideoPlayer();
+        var savedFile = await addMediaToList(file);
+        _startVideoPlayer(savedFile!);
       }
     });
+  }
+
+  Future<MediaFile?> addMediaToList(XFile? file) async {
+    if (file == null) return null;
+    String ext = file.path.endsWith(".mp4") ? '.mp4' : '.jpg';
+    String time = Utils.getTimeString();
+    String path = await Utils.createMediaPath();
+    String name = "$time$ext";
+    String fullPath = "$path/$name";
+    log(fullPath);
+
+    int totalBytes = await file.length();
+    await File(fullPath).create(recursive: true);
+
+    await file.saveTo(fullPath);
+
+    MediaFile m = MediaFile(
+      path: fullPath,
+      fileName: name,
+      time: time,
+      totalBytes: totalBytes,
+    );
+    app.addFile(m);
+    showInSnackBar('added to controller ${m.time}');
+    _listViewController.animateTo(
+      app.mediaFileList.length * 120,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    return m;
   }
 
   void showInSnackBar(String message) {
